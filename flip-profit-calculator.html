@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arbitrage &amp; Deal Flip Net Profit Calculator | PulseScout AI</title>
+<meta name="description" content="Calculate real net profit, ROI percentage, margin, and break-even sell price after marketplace fees, payment processing, and shipping.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Flip Net Profit &amp; Margin Calculator | PulseScout AI">
+<meta property="og:description" content="Know your true net margin on Steam, hardware, or e-commerce deal flips before you buy.">
+<meta property="og:image" content="https://testtechteam200-star.github.io/pulsescout/preview.png">
+<style>
+  :root { --bg:#080c14; --card:#111827; --accent:#10b981; --amber:#f59e0b; --blue:#38bdf8; --danger:#ef4444; --text:#f8fafc; --muted:#94a3b8; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background:var(--bg); color:var(--text); line-height:1.6; }
+  .nav { max-width:980px; margin:0 auto; padding:16px 20px; display:flex; flex-wrap:wrap; gap:10px; justify-content:center; border-bottom:1px solid #1e293b; }
+  .nav a { color:var(--muted); text-decoration:none; font-size:13px; font-weight:600; padding:6px 12px; border-radius:8px; background:#111827; border:1px solid #1f2937; }
+  .nav a.active, .nav a:hover { color:var(--amber); border-color:var(--amber); }
+  .wrap { max-width:920px; margin:0 auto; padding:32px 20px 56px; }
+  h1 { font-size:clamp(24px, 4vw, 38px); margin:0 0 10px; text-align:center; }
+  .sub { color:var(--muted); text-align:center; max-width:660px; margin:0 auto 28px; font-size:15px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:22px; }
+  .card { background:var(--card); border:1px solid #1f2937; border-radius:16px; padding:22px; }
+  label { display:block; font-size:13px; color:var(--muted); margin-top:12px; font-weight:600; }
+  input { width:100%; padding:11px; margin-top:5px; border-radius:8px; border:1px solid #334155; background:#0b0f19; color:#fff; font-size:15px; }
+  .res-box { margin-top:14px; padding:14px; border-radius:10px; background:#0b0f19; border:1px solid #1e293b; font-size:14px; }
+  .row { display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid #1f2937; }
+  .row:last-child { border-bottom:none; }
+  .cta { margin-top:26px; text-align:center; display:flex; flex-wrap:wrap; gap:12px; justify-content:center; }
+  .btn { padding:13px 20px; border-radius:12px; font-weight:700; text-decoration:none; font-size:14px; display:inline-block; }
+  .btn-primary { background:var(--accent); color:#052e16; }
+  .btn-sec { background:var(--blue); color:#082f49; }
+  .btn-amber { background:var(--amber); color:#1c1917; }
+  footer { text-align:center; padding:24px 16px; color:#64748b; font-size:13px; border-top:1px solid #111827; }
+</style>
+</head>
+<body>
+  <nav class="nav">
+    <a href="index.html">🎯 Position Size</a>
+    <a href="liquidation-calculator.html">⚡ Liquidation &amp; Fees</a>
+    <a href="dca-simulator.html">📊 DCA Simulator</a>
+    <a class="active" href="flip-profit-calculator.html">🔥 Flip Profit</a>
+    <a href="rsi-cheat-sheet.html">📈 4H RSI &amp; R:R</a>
+  </nav>
+  <main class="wrap">
+    <h1>🔥 Arbitrage &amp; Deal Flip Net Profit Calculator</h1>
+    <p class="sub">Platform fees, payment processing, and shipping silently crush resale margins. Check true net profit and break-even sell price first.</p>
+    <div class="grid">
+      <div class="card">
+        <label>Buy / Acquisition Cost ($)</label>
+        <input id="buy" type="number" value="40" step="any" oninput="calc()">
+        <label>Target Sell Price ($)</label>
+        <input id="sell" type="number" value="75" step="any" oninput="calc()">
+        <div style="display:flex;gap:10px;">
+          <div style="flex:1;"><label>Platform Fee (%)</label><input id="pfee" type="number" value="12.5" step="0.1" oninput="calc()"></div>
+          <div style="flex:1;"><label>Payment Fee (%)</label><input id="payfee" type="number" value="2.9" step="0.1" oninput="calc()"></div>
+        </div>
+        <label>Shipping, Packaging &amp; Fixed Costs ($)</label>
+        <input id="ship" type="number" value="6.50" step="any" oninput="calc()">
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0;color:var(--amber);">💰 True Net Margin</h3>
+        <div id="out" class="res-box"></div>
+        <p style="font-size:13px;color:var(--muted);margin-top:16px;">Want automated 75%–95% OFF Steam &amp; software price-drop alerts every 30 minutes? Join <b>@PulseScoutDeals</b> for free.</p>
+      </div>
+    </div>
+    <div class="cta">
+      <a class="btn btn-sec" href="https://t.me/PulseScoutDeals">🔥 Live 80%+ Deals (@PulseScoutDeals)</a>
+      <a class="btn btn-primary" href="https://t.me/PulseScoutAI_bot">🤖 Launch @PulseScoutAI_bot</a>
+      <a class="btn btn-amber" href="https://techteamster5.gumroad.com/l/sfrjh">🛍️ DealSniper Pro Toolkit</a>
+    </div>
+  </main>
+  <footer>PulseScout AI • Educational deal math &amp; aggregation. Not financial advice.</footer>
+<script>
+function calc(){
+  const buy = +document.getElementById('buy').value || 0;
+  const sell = +document.getElementById('sell').value || 0;
+  const feeRate = ((+document.getElementById('pfee').value || 0) + (+document.getElementById('payfee').value || 0)) / 100;
+  const ship = +document.getElementById('ship').value || 0;
+  if(sell <= 0 || feeRate >= 1){ document.getElementById('out').innerHTML = 'Enter valid positive prices and fees < 100%.'; return; }
+  const totalFees = sell * feeRate;
+  const totalCost = buy + ship + totalFees;
+  const net = sell - totalCost;
+  const roi = (buy + ship) > 0 ? (net / (buy + ship)) * 100 : 0;
+  const margin = (net / sell) * 100;
+  const breakeven = (buy + ship) / (1 - feeRate);
+  const netColor = net >= 0 ? 'var(--accent)' : 'var(--danger)';
+  document.getElementById('out').innerHTML =
+    `<div class="row"><span>Total Platform + Pay Fees</span><b style="color:var(--amber);">$${totalFees.toFixed(2)}</b></div>`+
+    `<div class="row"><span>Net Flip Profit</span><b style="color:${netColor};">$${net.toFixed(2)}</b></div>`+
+    `<div class="row"><span>Cash-on-Cash ROI</span><b style="color:${netColor};">${roi.toFixed(1)}%</b></div>`+
+    `<div class="row"><span>Net Profit Margin</span><b>${margin.toFixed(1)}%</b></div>`+
+    `<div class="row"><span>Break-Even Sell Price</span><b style="color:var(--blue);">$${breakeven.toFixed(2)}</b></div>`;
+}
+calc();
+</script>
+</body>
+</html>

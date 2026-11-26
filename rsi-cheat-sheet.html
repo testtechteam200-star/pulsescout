@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>4H RSI(14) Cheat Sheet &amp; Risk/Reward Win-Rate Calculator | PulseScout AI</title>
+<meta name="description" content="Interactive 4H RSI(14) momentum zone guide plus Risk-to-Reward ratio, minimum break-even win rate, and expected value calculator.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="4H RSI Cheat Sheet &amp; R:R Win-Rate Calculator | PulseScout AI">
+<meta property="og:description" content="Calculate your exact Risk/Reward ratio, break-even win rate, and 100-trade expectancy.">
+<meta property="og:image" content="https://testtechteam200-star.github.io/pulsescout/preview.png">
+<style>
+  :root { --bg:#080c14; --card:#111827; --accent:#10b981; --amber:#f59e0b; --blue:#38bdf8; --danger:#ef4444; --text:#f8fafc; --muted:#94a3b8; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background:var(--bg); color:var(--text); line-height:1.6; }
+  .nav { max-width:980px; margin:0 auto; padding:16px 20px; display:flex; flex-wrap:wrap; gap:10px; justify-content:center; border-bottom:1px solid #1e293b; }
+  .nav a { color:var(--muted); text-decoration:none; font-size:13px; font-weight:600; padding:6px 12px; border-radius:8px; background:#111827; border:1px solid #1f2937; }
+  .nav a.active, .nav a:hover { color:var(--blue); border-color:var(--blue); }
+  .wrap { max-width:940px; margin:0 auto; padding:32px 20px 56px; }
+  h1 { font-size:clamp(24px, 4vw, 38px); margin:0 0 10px; text-align:center; }
+  .sub { color:var(--muted); text-align:center; max-width:660px; margin:0 auto 28px; font-size:15px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:22px; }
+  .card { background:var(--card); border:1px solid #1f2937; border-radius:16px; padding:22px; }
+  label { display:block; font-size:13px; color:var(--muted); margin-top:12px; font-weight:600; }
+  input { width:100%; padding:11px; margin-top:5px; border-radius:8px; border:1px solid #334155; background:#0b0f19; color:#fff; font-size:15px; }
+  .res-box { margin-top:14px; padding:14px; border-radius:10px; background:#0b0f19; border:1px solid #1e293b; font-size:14px; }
+  .row { display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid #1f2937; }
+  .row:last-child { border-bottom:none; }
+  .zone { padding:10px 12px; border-radius:10px; background:#0b0f19; border-left:4px solid var(--accent); margin-bottom:10px; font-size:13px; }
+  .cta { margin-top:26px; text-align:center; display:flex; flex-wrap:wrap; gap:12px; justify-content:center; }
+  .btn { padding:13px 20px; border-radius:12px; font-weight:700; text-decoration:none; font-size:14px; display:inline-block; }
+  .btn-primary { background:var(--accent); color:#052e16; }
+  .btn-sec { background:var(--blue); color:#082f49; }
+  .btn-amber { background:var(--amber); color:#1c1917; }
+  footer { text-align:center; padding:24px 16px; color:#64748b; font-size:13px; border-top:1px solid #111827; }
+</style>
+</head>
+<body>
+  <nav class="nav">
+    <a href="index.html">🎯 Position Size</a>
+    <a href="liquidation-calculator.html">⚡ Liquidation &amp; Fees</a>
+    <a href="dca-simulator.html">📊 DCA Simulator</a>
+    <a href="flip-profit-calculator.html">🔥 Flip Profit</a>
+    <a class="active" href="rsi-cheat-sheet.html">📈 4H RSI &amp; R:R</a>
+  </nav>
+  <main class="wrap">
+    <h1>📈 4H RSI(14) Cheat Sheet &amp; R:R Expectancy</h1>
+    <p class="sub">Check exact Risk/Reward math and minimum win-rate needed before entering, paired with PulseScout AI's 4H RSI(14) momentum zones.</p>
+    <div class="grid">
+      <div class="card">
+        <h3 style="margin-top:0;color:var(--blue);">🎯 Risk/Reward &amp; Win-Rate Math</h3>
+        <label>Entry Price ($)</label>
+        <input id="entry" type="number" value="100" step="any" oninput="calc()">
+        <div style="display:flex;gap:10px;">
+          <div style="flex:1;"><label>Stop-Loss ($)</label><input id="sl" type="number" value="95" step="any" oninput="calc()"></div>
+          <div style="flex:1;"><label>Take-Profit ($)</label><input id="tp" type="number" value="112" step="any" oninput="calc()"></div>
+        </div>
+        <label>Assumed Strategy Win Rate (%)</label>
+        <input id="wr" type="number" value="45" min="1" max="99" step="1" oninput="calc()">
+        <div id="out" class="res-box"></div>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0;color:var(--accent);">⚡ PulseScout 4H RSI(14) Zones</h3>
+        <div class="zone" style="border-color:var(--accent);"><b>RSI &lt; 33 — Oversold Dip</b><br>Extreme exhaustion zone; watch for support bounce setups.</div>
+        <div class="zone" style="border-color:var(--blue);"><b>Price &gt; SMA20 &amp; RSI 33–45 — Pullback Entry</b><br>Healthy trend retracement with asymmetric R:R.</div>
+        <div class="zone" style="border-color:var(--accent);"><b>Price &gt; SMA20 &amp; RSI 45–66 — Bullish Momentum</b><br>Active trend continuation zone.</div>
+        <div class="zone" style="border-color:var(--amber);"><b>RSI &gt;= 70 — Overbought Exhaustion</b><br>Extended move; scale out profits or tighten stops.</div>
+        <div class="zone" style="border-color:var(--danger);"><b>Price &lt; SMA20 &amp; RSI &lt; 45 — Defensive</b><br>Bearish structure; wait for SMA-20 reclaim.</div>
+      </div>
+    </div>
+    <div class="cta">
+      <a class="btn btn-primary" href="https://t.me/PulseScoutAI_bot">🤖 Live 4H RSI Radar (@PulseScoutAI_bot)</a>
+      <a class="btn btn-sec" href="https://t.me/PulseScoutDeals">📢 @PulseScoutDeals Feed</a>
+      <a class="btn btn-amber" href="https://techteamster5.gumroad.com/l/fgidof">🛍️ QuantPulse Pro Suite</a>
+    </div>
+  </main>
+  <footer>PulseScout AI • Educational quant analytics only. Not financial advice.</footer>
+<script>
+function calc(){
+  const entry = +document.getElementById('entry').value || 0;
+  const sl = +document.getElementById('sl').value || 0;
+  const tp = +document.getElementById('tp').value || 0;
+  const wr = (+document.getElementById('wr').value || 0) / 100;
+  const risk = Math.abs(entry - sl);
+  const reward = Math.abs(tp - entry);
+  if(risk <= 0 || reward <= 0){ document.getElementById('out').innerHTML = 'Enter distinct Entry, SL, and TP prices.'; return; }
+  const rr = reward / risk;
+  const reqWr = (1 / (1 + rr)) * 100;
+  const expR = wr * rr - (1 - wr) * 1;
+  const exp100 = expR * 100;
+  const c = expR >= 0 ? 'var(--accent)' : 'var(--danger)';
+  document.getElementById('out').innerHTML =
+    `<div class="row"><span>Risk : Reward Ratio</span><b>1 : ${rr.toFixed(2)}</b></div>`+
+    `<div class="row"><span>Min Win Rate to Break Even</span><b style="color:var(--blue);">${reqWr.toFixed(1)}%</b></div>`+
+    `<div class="row"><span>Expectancy per Trade</span><b style="color:${c};">${expR >= 0 ? '+' : ''}${expR.toFixed(2)} R</b></div>`+
+    `<div class="row"><span>Expected Net over 100 Trades</span><b style="color:${c};">${exp100 >= 0 ? '+' : ''}${exp100.toFixed(1)} R</b></div>`;
+}
+calc();
+</script>
+</body>
+</html>
